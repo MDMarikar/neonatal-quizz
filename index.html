@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 Enhanced Unwell Neonate Diagnostic Game</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 300% 300%;
+            animation: gradientShift 8s ease infinite;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            border-radius: 2px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.05); }
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            animation: textGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes textGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            color: #7f8c8d;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .instructions {
+            background: linear-gradient(135deg, #e8f4fd, #f0f9ff);
+            border-left: 6px solid #3498db;
+            padding: 25px;
+            margin-bottom: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .instructions::before {
+            content: '💡';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .instructions strong {
+            color: #2980b9;
+            font-weight: 700;
+        }
+
+        .case-selector {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .case-selector h3 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .case-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            margin: 8px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .case-btn:hover {
+            background: linear-gradient(135deg, #c0392b, #a93226);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(231, 76, 60, 0.4);
+        }
+
+        .case-btn:hover::before {
+            left: 100%;
+        }
+
+        .case-display {
+            display: none;
+            animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .case-display.active {
+            display: block;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .patient-card {
+            background: linear-gradient(135deg, #3498db, #2980b9, #1abc9c);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 40px rgba(52, 152, 219, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .patient-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .patient-card h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .patient-details {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .detail-item {
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(10px);
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .detail-item:hover {
+            background: rgba(255,255,255,0.35);
+            transform: translateY(-2px);
+        }
+
+        .patient-card p {
+            position: relative;
+            z-index: 2;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .findings-section {
+            margin: 30px 0;
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            box-shadow: 0 8px 25px rgba(52, 73, 94, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #e74c3c, #f39c12, #27ae60, #3498db);
+        }
+
+        .findings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .finding {
+            background: linear-gradient(135deg, #f8f9fa, #ecf0f1);
+            border-left: 6px solid #95a5a6;
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .finding::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(149, 165, 166, 0.1), transparent);
+            transition: width 0.4s ease;
+        }
+
+        .finding:hover {
+            background: linear-gradient(135deg, #ecf0f1, #d5dbdb);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .finding:hover::before {
+            width: 100%;
+        }
+
+        .finding.red-flag {
+            border-left-color: #e74c3c;
+            background: linear-gradient(135deg, #fdebeb, #f8d7da);
+            animation: redFlagPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes redFlagPulse {
+            0%, 100% { box-shadow: 0 5px 15px rgba(231, 76, 60, 0.2); }
+            50% { box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4); }
+        }
+
+        .finding.red-flag:hover {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+        }
+
+        .red-text {
+            color: #e74c3c;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(231, 76, 60, 0.3);
+        }
+
+        .diagnosis-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .diagnosis-section h3 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .diagnosis-options {
+            display: none;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            animation: fadeInScale 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .diagnosis-options.show {
+            display: flex;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .diag-btn {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+            color: white;
+            border: none;
+            padding: 18px 26px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(149, 165, 166, 0.3);
+            position: relative;
+            overflow: hidden;
+            min-width: 180px;
+        }
+
+        .diag-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .diag-btn:hover {
+            background: linear-gradient(135deg, #7f8c8d, #6c7b7d);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(149, 165, 166, 0.4);
+        }
+
+        .diag-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .diag-btn.correct {
+            background: linear-gradient(135deg, #27ae60, #229954);
+            animation: correctPulse 1.5s ease-in-out infinite;
+            box-shadow: 0 15px 35px rgba(39, 174, 96, 0.5);
+        }
+
+        .diag-btn.wrong {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            animation: wrongShake 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes correctPulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 15px 35px rgba(39, 174, 96, 0.5);
+            }
+            50% { 
+                transform: scale(1.08);
+                box-shadow: 0 20px 45px rgba(39, 174, 96, 0.7);
+            }
+        }
+
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-6px); }
+            80% { transform: translateX(6px); }
+        }
+
+        .answer-reveal {
+            display: none;
+            background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+            border: 3px solid #17a2b8;
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 15px 40px rgba(23, 162, 184, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .answer-reveal::before {
+            content: '🎯';
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 3rem;
+            animation: celebrationSpin 2s ease-in-out infinite;
+        }
+
+        @keyframes celebrationSpin {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(10deg) scale(1.1); }
+            75% { transform: rotate(-10deg) scale(1.1); }
+        }
+
+        .answer-reveal.show {
+            display: block;
+            animation: answerSlideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes answerSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .answer-reveal h3 {
+            color: #0c5460;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .management-box {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border: 3px solid #ffc107;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(255, 193, 7, 0.2);
+            position: relative;
+        }
+
+        .management-box::before {
+            content: '🚨';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2.5rem;
+            animation: alertFlash 2s ease-in-out infinite;
+        }
+
+        @keyframes alertFlash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .management-box h4 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .management-box ul {
+            color: #856404;
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        .management-box li {
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .management-box strong {
+            color: #6c5400;
+            font-weight: 700;
+        }
+
+        .reveal-diagnosis-btn {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            border: none;
+            padding: 20px 30px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 30px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(243, 156, 18, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reveal-diagnosis-btn::after {
+            content: '✨';
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.6; transform: translateY(-50%) scale(1); }
+            50% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+        }
+
+        .reveal-diagnosis-btn:hover {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 20px 45px rgba(243, 156, 18, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .patient-details {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .findings-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .diagnosis-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .case-btn, .diag-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* Particle animation */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            font-size: 20px;
+            animation: particleFloat 3s ease-out forwards;
+            z-index: 1000;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍼 Enhanced Unwell Neonate Diagnostic Game</h1>
+            <p>Interactive Learning for Emergency Medicine</p>
+        </div>
+
+        <div class="instructions">
+            <strong>How to Use:</strong> Based on Dr Snelson's RCEM Unwell Neonate article. Select a case below, examine the patient presentation and findings, then choose your diagnosis. Perfect for group teaching - reveal findings gradually and discuss red flags!
+        </div>
+
+        <div class="case-selector">
+            <h3>Choose a Case:</h3>
+            <button class="case-btn" onclick="showCase(1)">Case 1: Baby Emma</button>
+            <button class="case-btn" onclick="showCase(2)">Case 2: Baby James</button>
+            <button class="case-btn" onclick="showCase(3)">Case 3: Baby Aisha</button>
+            <button class="case-btn" onclick="showCase(4)">Case 4: Baby Oliver</button>
+            <button class="case-btn" onclick="showCase(5)">Case 5: Baby Sophie</button>
+            <button class="case-btn" onclick="showCase(6)">Case 6: Baby Alex</button>
+            <button class="case-btn" onclick="showCase(7)">Case 7: Baby Maya</button>
+        </div>
+
+        <!-- Case 1: Sepsis -->
+        <div id="case1" class="case-display">
+            <div class="patient-card">
+                <h2>👶 Baby Emma</h2>
+                <div class="patient-details">
+                    <div class="detail-item">Age: 6 weeks</div>
+                    <div class="detail-item">Birth Weight: 3.2kg</div>
+                    <div class="detail-item">Current Weight: 3.8kg</div>
+                </div>
+                <p><strong>Presentation:</strong> Parents report Emma has been "not herself" for the past day. More sleepy than usual, not waking for feeds, taking less milk. Mum noticed she felt "a bit warm" this morning.</p>
+            </div>
+
+            <div class="findings-section">
+                <div class="section-title">🔍 Examination Findings</div>
+                <div class="findings-grid">
+                    <div class="finding" onclick="highlightThis(this)">
+                        <strong>Temperature:</strong> 38.2°C
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Heart Rate:</strong> <span class="red-text">180 bpm</span>
+                    </div>
+                    <div class="finding" onclick="highlightThis(this)">
+                        <strong>Respiratory Rate:</strong> 45/min
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Capillary Refill:</strong> <span class="red-text">3 seconds</span>
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Tone:</strong> <span class="red-text">Floppy, less responsive</span>
+                    </div>
+                    <div class="finding" onclick="highlightThis(this)">
+                        <strong>Fontanelle:</strong> Soft, not bulging
+                    </div>
+                </div>
+            </div>
+
+            <div class="diagnosis-section">
+                <h3>What's your primary concern?</h3>
+                <button class="reveal-diagnosis-btn" onclick="showDiagnosisOptions(1)">🤔 Reveal Diagnosis Options</button>
+                <div class="diagnosis-options" id="options1">
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 1)">Viral illness</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, true, 1)">Sepsis</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 1)">Dehydration</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 1)">Normal variant</button>
+                </div>
+
+                <div id="answer1" class="answer-reveal">
+                    <h3>🎯 Correct! Primary Diagnosis: SEPSIS</h3>
+                    <p><strong>Key Red Flags:</strong> Fever >38°C in infant <3 months + tachycardia + poor perfusion + altered behavior</p>
+                    <div class="management-box">
+                        <h4>🚨 Immediate Management:</h4>
+                        <ul>
+                            <li><strong>Full septic screen:</strong> Blood cultures, urine culture, CSF culture</li>
+                            <li><strong>IV antibiotics within 1 hour</strong> (don't delay for LP!)</li>
+                            <li><strong>Sepsis 6:</strong> Lactate, oxygen if needed, fluid bolus, monitor UO</li>
+                            <li><strong>Check glucose:</strong> Risk of hypoglycaemia</li>
+                            <li><strong>Clean catch urine</strong> while waiting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Case 2: Cardiac -->
+        <div id="case2" class="case-display">
+            <div class="patient-card">
+                <h2>👶 Baby James</h2>
+                <div class="patient-details">
+                    <div class="detail-item">Age: 3 weeks</div>
+                    <div class="detail-item">Birth Weight: 3.5kg</div>
+                    <div class="detail-item">Current Weight: 3.4kg</div>
+                </div>
+                <p><strong>Presentation:</strong> Parents concerned James is "working hard to breathe" especially during feeds. Gets tired quickly, sweats during feeding. Sometimes looks "blue around the lips".</p>
+            </div>
+
+            <div class="findings-section">
+                <div class="section-title">🔍 Examination Findings</div>
+                <div class="findings-grid">
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Heart Rate:</strong> <span class="red-text">170 bpm</span>
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Respiratory Rate:</strong> <span class="red-text">65/min (no distress)</span>
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Central Cyanosis:</strong> <span class="red-text">Present</span>
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Femoral Pulses:</strong> <span class="red-text">Weak</span>
+                    </div>
+                    <div class="finding" onclick="highlightThis(this)">
+                        <strong>Heart Sounds:</strong> Grade 3/6 systolic murmur
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Liver:</strong> <span class="red-text">Palpable 3cm below costal margin</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="diagnosis-section">
+                <h3>What's your primary concern?</h3>
+                <button class="reveal-diagnosis-btn" onclick="showDiagnosisOptions(2)">🤔 Reveal Diagnosis Options</button>
+                <div class="diagnosis-options" id="options2">
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 2)">Pneumonia</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, true, 2)">Congenital Heart Disease</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 2)">Sepsis</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 2)">Bronchiolitis</button>
+                </div>
+
+                <div id="answer2" class="answer-reveal">
+                    <h3>🎯 Correct! Primary Diagnosis: CONGENITAL HEART DISEASE</h3>
+                    <p><strong>Key Red Flags:</strong> Tachypnoea without respiratory distress + central cyanosis + weak femoral pulses + hepatomegaly</p>
+                    <div class="management-box">
+                        <h4>🚨 Immediate Management:</h4>
+                        <ul>
+                            <li><strong>Pre/post-ductal saturations & BP</strong> (right arm vs right leg)</li>
+                            <li><strong>CXR and ECG</strong></li>
+                            <li><strong>Consider Prostin</strong> if <1 month and cyanotic</li>
+                            <li><strong>Contact Paediatric Cardiology early</strong></li>
+                            <li><strong>Treat for sepsis too</strong> - empirical antibiotics</li>
+                            <li><strong>Careful fluid management:</strong> 10ml/kg boluses</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Case 3: Metabolic -->
+        <div id="case3" class="case-display">
+            <div class="patient-card">
+                <h2>👶 Baby Aisha</h2>
+                <div class="patient-details">
+                    <div class="detail-item">Age: 8 weeks</div>
+                    <div class="detail-item">Birth Weight: 3.1kg</div>
+                    <div class="detail-item">Current Weight: 3.0kg</div>
+                </div>
+                <p><strong>Presentation:</strong> Vomiting after feeds, seems "floppy and sleepy". Had what looked like a seizure this morning. <strong>Family history:</strong> Parents are first cousins, previous miscarriage at 20 weeks.</p>
+            </div>
+
+            <div class="findings-section">
+                <div class="section-title">🔍 Examination Findings</div>
+                <div class="findings-grid">
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Consciousness:</strong> <span class="red-text">Decreased level of consciousness, less responsive to stimulation</span>
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Tone:</strong> <span class="red-text">Hypotonic (floppy)</span>
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Reflexes:</strong> <span class="red-text">Diminished primitive reflexes</span>
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Weight:</strong> <span class="red-text">Poor weight gain</span>
+                    </div>
+                    <div class="finding" onclick="highlightThis(this)">
+                        <strong>Temperature:</strong> 37.1°C
+                    </div>
+                    <div class="finding" onclick="highlightThis(this)">
+                        <strong>Heart Rate:</strong> 145 bpm
+                    </div>
+                </div>
+            </div>
+
+            <div class="diagnosis-section">
+                <h3>What's your primary concern?</h3>
+                <button class="reveal-diagnosis-btn" onclick="showDiagnosisOptions(3)">🤔 Reveal Diagnosis Options</button>
+                <div class="diagnosis-options" id="options3">
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 3)">Sepsis</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 3)">Non-accidental injury</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, true, 3)">Metabolic disorder</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 3)">Gastroenteritis</button>
+                </div>
+
+                <div id="answer3" class="answer-reveal">
+                    <h3>🎯 Correct! Primary Diagnosis: INBORN ERROR OF METABOLISM</h3>
+                    <p><strong>Key Red Flags:</strong> Consanguineous parents + previous miscarriage + decreased consciousness + diminished reflexes + hypotonia + seizures + poor weight gain</p>
+                    <div class="management-box">
+                        <h4>🚨 Immediate Management:</h4>
+                        <ul>
+                            <li><strong>Metabolic screen:</strong> Glucose, ketones, lactate, ammonia</li>
+                            <li><strong>Stop all feeds immediately</strong></li>
+                            <li><strong>IV fluids with 10% dextrose</strong></li>
+                            <li><strong>Send ammonia on ice</strong> (free-flowing venous sample)</li>
+                            <li><strong>Contact tertiary Metabolic team</strong> urgently</li>
+                            <li><strong>Also treat for sepsis</strong> - antibiotics needed</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Case 4: NAI -->
+        <div id="case4" class="case-display">
+            <div class="patient-card">
+                <h2>👶 Baby Oliver</h2>
+                <div class="patient-details">
+                    <div class="detail-item">Age: 10 weeks</div>
+                    <div class="detail-item">Birth Weight: 2.8kg</div>
+                    <div class="detail-item">Current Weight: 3.9kg</div>
+                </div>
+                <p><strong>Presentation:</strong> Father says he "fell off the sofa" yesterday and has been "quiet since". Story keeps changing - first said rolled off, then said crawling and fell. Father seems agitated.</p>
+            </div>
+
+            <div class="findings-section">
+                <div class="section-title">🔍 Examination Findings</div>
+                <div class="findings-grid">
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Consciousness:</strong> <span class="red-text">Decreased level, irritable when handled</span>
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Bruising:</strong> <span class="red-text">Small bruise on forehead</span>
+                    </div>
+                    <div class="finding" onclick="highlightThis(this)">
+                        <strong>Fontanelle:</strong> Soft
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Development:</strong> <span class="red-text">Cannot roll yet</span>
+                    </div>
+                    <div class="finding" onclick="highlightThis(this)">
+                        <strong>Vital Signs:</strong> Normal for age
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Interaction:</strong> <span class="red-text">Father seems detached, unusual affect</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="diagnosis-section">
+                <h3>What's your primary concern?</h3>
+                <button class="reveal-diagnosis-btn" onclick="showDiagnosisOptions(4)">🤔 Reveal Diagnosis Options</button>
+                <div class="diagnosis-options" id="options4">
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 4)">Accidental injury</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, true, 4)">Non-accidental injury</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 4)">Viral illness</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 4)">Normal behavior</button>
+                </div>
+
+                <div id="answer4" class="answer-reveal">
+                    <h3>🎯 Correct! Primary Diagnosis: SUSPECTED NON-ACCIDENTAL INJURY</h3>
+                    <p><strong>Key Red Flags:</strong> Inconsistent history + developmentally inappropriate mechanism + bruising in non-mobile child + altered consciousness</p>
+                    <div class="management-box">
+                        <h4>🚨 Immediate Management:</h4>
+                        <ul>
+                            <li><strong>Medical stabilization first</strong> - treat any injuries</li>
+                            <li><strong>CT head</strong> - essential given altered consciousness</li>
+                            <li><strong>Full body examination</strong> including nappy area</li>
+                            <li><strong>Contact safeguarding team & social services</strong></li>
+                            <li><strong>Consider police referral</strong> (check local policy)</li>
+                            <li><strong>Document everything carefully</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Case 5: Surgical -->
+        <div id="case5" class="case-display">
+            <div class="patient-card">
+                <h2>👶 Baby Sophie</h2>
+                <div class="patient-details">
+                    <div class="detail-item">Age: 4 weeks</div>
+                    <div class="detail-item">Birth Weight: 3.3kg</div>
+                    <div class="detail-item">Current Weight: 3.1kg</div>
+                </div>
+                <p><strong>Presentation:</strong> Vomiting after every feed for the past week. The vomit is green/yellow and projectile. Seems hungry after vomiting but parents worried about weight loss.</p>
+            </div>
+
+            <div class="findings-section">
+                <div class="section-title">🔍 Examination Findings</div>
+                <div class="findings-grid">
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Vomiting:</strong> <span class="red-text">Bilious (green/yellow)</span>
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Abdomen:</strong> <span class="red-text">Distended</span>
+                    </div>
+                    <div class="finding" onclick="highlightThis(this)">
+                        <strong>Bowel Sounds:</strong> Present but high-pitched
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Weight:</strong> <span class="red-text">Lost 200g since birth</span>
+                    </div>
+                    <div class="finding" onclick="highlightThis(this)">
+                        <strong>Hernial Orifices:</strong> Normal
+                    </div>
+                    <div class="finding" onclick="highlightThis(this)">
+                        <strong>Anus:</strong> Patent
+                    </div>
+                </div>
+            </div>
+
+            <div class="diagnosis-section">
+                <h3>What's your primary concern?</h3>
+                <button class="reveal-diagnosis-btn" onclick="showDiagnosisOptions(5)">🤔 Reveal Diagnosis Options</button>
+                <div class="diagnosis-options" id="options5">
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 5)">Gastroenteritis</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 5)">Pyloric stenosis</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, true, 5)">Intestinal obstruction</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 5)">Reflux</button>
+                </div>
+
+                <div id="answer5" class="answer-reveal">
+                    <h3>🎯 Correct! Primary Diagnosis: INTESTINAL OBSTRUCTION</h3>
+                    <p><strong>Key Red Flags:</strong> Bilious vomiting in neonate (NEVER normal!) + abdominal distension + weight loss</p>
+                    <div class="management-box">
+                        <h4>🚨 Immediate Management:</h4>
+                        <ul>
+                            <li><strong>Stop all feeds immediately</strong></li>
+                            <li><strong>IV access and fluid resuscitation</strong></li>
+                            <li><strong>NG tube on free drainage</strong></li>
+                            <li><strong>CXR and AXR</strong></li>
+                            <li><strong>IV antibiotics</strong> (discuss with surgeons)</li>
+                            <li><strong>Urgent surgical referral</strong> - may need transfer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Case 6: CAH -->
+        <div id="case6" class="case-display">
+            <div class="patient-card">
+                <h2>👶 Baby Alex</h2>
+                <div class="patient-details">
+                    <div class="detail-item">Age: 10 days old</div>
+                    <div class="detail-item">Birth Weight: 3.4kg</div>
+                    <div class="detail-item">Current Weight: 3.1kg</div>
+                </div>
+                <p><strong>Presentation:</strong> Alex has been vomiting and refusing feeds for 2 days. Parents noticed the baby seems very sleepy and "floppy". Initially discharged well after birth with normal newborn screening. Family history: one previous neonatal death (cause unknown).</p>
+            </div>
+
+            <div class="findings-section">
+                <div class="section-title">🔍 Examination Findings</div>
+                <div class="findings-grid">
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Blood Pressure:</strong> <span class="red-text">55/30 mmHg</span>
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Heart Rate:</strong> <span class="red-text">190 bpm</span>
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Capillary Refill:</strong> <span class="red-text">4 seconds</span>
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Skin:</strong> <span class="red-text">Mottled, poor perfusion</span>
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Genitalia:</strong> <span class="red-text">Ambiguous external genitalia</span>
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Tone:</strong> <span class="red-text">Hypotonic, lethargic</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="diagnosis-section">
+                <h3>What's your primary concern?</h3>
+                <button class="reveal-diagnosis-btn" onclick="showDiagnosisOptions(6)">🤔 Reveal Diagnosis Options</button>
+                <div class="diagnosis-options" id="options6">
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 6)">Sepsis</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, true, 6)">Congenital Adrenal Hyperplasia</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 6)">Gastroenteritis</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 6)">Cardiac disease</button>
+                </div>
+
+                <div id="answer6" class="answer-reveal">
+                    <h3>🎯 Correct! Primary Diagnosis: CONGENITAL ADRENAL HYPERPLASIA (CAH)</h3>
+                    <p><strong>Key Red Flags:</strong> Shock + ambiguous genitalia + vomiting + weight loss + family history of neonatal death. <strong>Suspect adrenal crisis if:</strong> acutely unwell with tachycardia, hypotension, hypoglycaemia, hyponatraemia, hyperkalaemia, or altered consciousness not attributable to another illness.</p>
+                    <div class="management-box">
+                        <h4>🚨 Immediate Management - TREAT WITHOUT DELAY:</h4>
+                        <p><strong>If you suspect adrenal crisis</strong> (acutely unwell with tachycardia, hypotension, hypoglycaemia, hyponatraemia, hyperkalaemia, or altered consciousness not attributable to another illness) treat immediately with glucocorticoids without delay:</p>
+                        <ul>
+                            <li><strong>IV hydrocortisone 4mg/kg IV</strong> immediately, then 6-hourly (severe illness dose)</li>
+                            <li><strong>If glucose <3mmol/L:</strong> 2ml/kg of 10% dextrose IV bolus, recheck after 15min</li>
+                            <li><strong>If shocked:</strong> 10ml/kg of 0.9% sodium chloride bolus, repeat if necessary</li>
+                            <li><strong>Maintenance fluids:</strong> 0.9% sodium chloride/5% dextrose</li>
+                            <li><strong>Urgent bloods:</strong> U&Es, glucose, cortisol (but don't delay treatment)</li>
+                            <li><strong>Contact endocrinology urgently</strong></li>
+                            <li><strong>Also treat for sepsis</strong> - empirical antibiotics until excluded</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Case 7: HSV Encephalitis -->
+        <div id="case7" class="case-display">
+            <div class="patient-card">
+                <h2>👶 Baby Maya</h2>
+                <div class="patient-details">
+                    <div class="detail-item">Age: 18 days old</div>
+                    <div class="detail-item">Birth Weight: 3.0kg</div>
+                    <div class="detail-item">Current Weight: 3.2kg</div>
+                </div>
+                <p><strong>Presentation:</strong> Maya was brought in by parents after they witnessed what looked like a seizure - jerking movements of the right arm and leg lasting about 2 minutes. She has been slightly off feeds for the past day and mum noticed she felt a bit warm. Born at term via normal vaginal delivery.</p>
+            </div>
+
+            <div class="findings-section">
+                <div class="section-title">🔍 Examination Findings</div>
+                <div class="findings-grid">
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Seizure:</strong> <span class="red-text">Witnessed focal seizure (right-sided)</span>
+                    </div>
+                    <div class="finding" onclick="highlightThis(this)">
+                        <strong>Temperature:</strong> 37.8°C
+                    </div>
+                    <div class="finding" onclick="highlightThis(this)">
+                        <strong>Heart Rate:</strong> 155 bpm
+                    </div>
+                    <div class="finding" onclick="highlightThis(this)">
+                        <strong>Fontanelle:</strong> Soft, not bulging
+                    </div>
+                    <div class="finding red-flag" onclick="highlightThis(this)">
+                        <strong>Neurological:</strong> <span class="red-text">Subtle right-sided weakness post-seizure</span>
+                    </div>
+                    <div class="finding" onclick="highlightThis(this)">
+                        <strong>Skin:</strong> No obvious rash or lesions visible
+                    </div>
+                </div>
+            </div>
+
+            <div class="diagnosis-section">
+                <h3>What's your primary concern?</h3>
+                <button class="reveal-diagnosis-btn" onclick="showDiagnosisOptions(7)">🤔 Reveal Diagnosis Options</button>
+                <div class="diagnosis-options" id="options7">
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 7)">Bacterial meningitis</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, true, 7)">HSV encephalitis</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 7)">Febrile seizure</button>
+                    <button class="diag-btn" onclick="checkAnswer(this, false, 7)">Hypoglycaemia</button>
+                </div>
+
+                <div id="answer7" class="answer-reveal">
+                    <h3>🎯 Correct! Primary Diagnosis: HSV ENCEPHALITIS</h3>
+                    <p><strong>Key Red Flags:</strong> Focal seizure in neonate + subtle neurological signs post-seizure. <strong>Remember:</strong> HSV encephalitis often presents with focal seizures and may have minimal systemic signs initially.</p>
+                    <div class="management-box">
+                        <h4>🚨 Immediate Management - TIME CRITICAL:</h4>
+                        <ul>
+                            <li><strong>IV aciclovir 20mg/kg TDS</strong> - start immediately, don't wait for LP/PCR</li>
+                            <li><strong>Full septic screen</strong> including CSF for HSV PCR</li>
+                            <li><strong>IV antibiotics</strong> - cover bacterial causes until excluded</li>
+                            <li><strong>Seizure management</strong> - have rescue medications ready</li>
+                            <li><strong>Consider CT/MRI brain</strong> if clinically indicated</li>
+                            <li><strong>Contact neurology/ID teams</strong> urgently</li>
+                            <li><strong>Continue aciclovir for minimum 21 days</strong> if confirmed HSV</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function createParticle(x, y) {
+            const particles = ['🔥', '💯', '✨', '🚀', '👑', '💎', '⚡', '🌟'];
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.textContent = particles[Math.floor(Math.random() * particles.length)];
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    document.body.removeChild(particle);
+                }
+            }, 3000);
+        }
+
+        function showDiagnosisOptions(caseNumber) {
+            var options = document.getElementById('options' + caseNumber);
+            var button = options.previousElementSibling;
+            
+            if (options) {
+                options.classList.add('show');
+                button.style.display = 'none';
+                
+                // Add particles
+                createParticle(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+                createParticle(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+            }
+        }
+
+        function showCase(caseNumber) {
+            // Hide all cases
+            var cases = document.querySelectorAll('.case-display');
+            for (var i = 0; i < cases.length; i++) {
+                cases[i].classList.remove('active');
+            }
+            
+            // Show selected case
+            var selectedCase = document.getElementById('case' + caseNumber);
+            if (selectedCase) {
+                selectedCase.classList.add('active');
+            }
+            
+            // Reset any previous answers
+            resetAnswers();
+            
+            // Add celebration particles
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    createParticle(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+                }, i * 200);
+            }
+        }
+
+        function highlightThis(element) {
+            element.style.transform = 'scale(1.02)';
+            element.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+            
+            // Add a particle
+            const rect = element.getBoundingClientRect();
+            createParticle(rect.left + rect.width/2, rect.top);
+            
+            setTimeout(function() {
+                element.style.transform = 'scale(1)';
+                element.style.boxShadow = 'none';
+            }, 300);
+        }
+
+        function checkAnswer(button, isCorrect, caseNumber) {
+            // Reset all buttons in this case
+            var buttons = button.parentElement.querySelectorAll('.diag-btn');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('correct', 'wrong');
+            }
+            
+            if (isCorrect) {
+                button.classList.add('correct');
+                // Show answer
+                var answer = document.getElementById('answer' + caseNumber);
+                if (answer) {
+                    answer.classList.add('show');
+                }
+                
+                // Celebration particles for correct answer
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                        createParticle(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+                    }, i * 100);
+                }
+            } else {
+                button.classList.add('wrong');
+                setTimeout(function() {
+                    button.classList.remove('wrong');
+                }, 1000);
+                
+                // Single particle for wrong answer
+                createParticle(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+            }
+        }
+
+        function resetAnswers() {
+            // Hide all answers
+            var answers = document.querySelectorAll('.answer-reveal');
+            for (var i = 0; i < answers.length; i++) {
+                answers[i].classList.remove('show');
+            }
+            
+            // Reset all buttons
+            var buttons = document.querySelectorAll('.diag-btn');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('correct', 'wrong');
+            }
+            
+            // Hide diagnosis options and show reveal buttons
+            var options = document.querySelectorAll('.diagnosis-options');
+            for (var i = 0; i < options.length; i++) {
+                options[i].classList.remove('show');
+            }
+            
+            var revealButtons = document.querySelectorAll('.reveal-diagnosis-btn');
+            for (var i = 0; i < revealButtons.length; i++) {
+                revealButtons[i].style.display = 'inline-block';
+            }
+        }
+
+        // Add some ambient particles
+        setInterval(() => {
+            if (Math.random() < 0.1) { // 10% chance every interval
+                createParticle(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+            }
+        }, 5000);
+
+        // Welcome animation
+        window.addEventListener('load', () => {
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    createParticle(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+                }, i * 300);
+            }
+        });
+    </script>
+</body>
+</html>
